@@ -1,6 +1,6 @@
-const createVisitor = require('../Visitor');
-const utils = require('../utils');
-const Constants = require('../Constants');
+const i11e = require('../dep').i11e;
+const createVisitor = i11e.createVisitor;
+const Constants = i11e.Constants;
 
 var DebugTracePipelineVisitor = createVisitor({
   getType() {
@@ -12,10 +12,9 @@ var DebugTracePipelineVisitor = createVisitor({
   },
 
   enter(pipeline, box, ctx) {
-    const utils = require('../utils');
     if (box.getTag(Constants.tags.DEBUG)
       && box.getTag(Constants.tags.DEBUG_TRACE_PIPELINE)) {
-      console.log(`|--> PPL: [${pipeline.getModel()}]-[${pipeline.id}]: Enter pipeline`);
+      console.log(`|--> PPL: [${pipeline.getModel()}]-[${pipeline.getId()}]: enter pipeline`);
     }
     ctx.startTime = process.hrtime();
   },
@@ -24,7 +23,7 @@ var DebugTracePipelineVisitor = createVisitor({
     var diff = process.hrtime(ctx.startTime);
     if (box.getTag(Constants.tags.DEBUG)
       && box.getTag(Constants.tags.DEBUG_TRACE_PIPELINE)) {
-      console.log(`|--> PPL: [${pipeline.getModel()}]-[${pipeline.id}]: Exit pipeline`);
+      console.log(`|--> PPL: [${pipeline.getModel()}]-[${pipeline.getId()}]: exit pipeline`);
     }
     if (err) {
       throw err;
@@ -36,6 +35,4 @@ var DebugTracePipelineVisitor = createVisitor({
   }
 });
 
-module.exports = (options) => {
-  return new DebugTracePipelineVisitor(options);
-}
+export default DebugTracePipelineVisitor;
