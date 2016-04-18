@@ -3,10 +3,6 @@ const createVisitor = i11e.createVisitor;
 const Constants = i11e.Constants;
 
 var DebugTracePipelineVisitor = createVisitor({
-  getType() {
-    return 'pipeline';
-  },
-
   getModel() {
     return "DebugTracePipelineVisitor";
   },
